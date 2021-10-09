@@ -6,8 +6,50 @@ using System.Threading.Tasks;
 
 namespace Homework_07_Task_02
 {
+
     class Program
     {
+
+        private static Worker GetWorkerFromConsole(int workerId)
+        {
+            Worker workerData = new Worker();
+
+            Console.Write("Please input Name: ");
+            workerData.WorkerName = Console.ReadLine();
+
+            Console.Write("Please input Age: ");
+            int.TryParse(Console.ReadLine(), out int age);
+            workerData.WorkerAge = age;
+
+            Console.Write("Please input Height: ");
+            int.TryParse(Console.ReadLine(), out int height);
+            workerData.WorkerHeight = height;
+
+            Console.Write("Please input Date Of Birth [dd.mm.yyyy]: ");
+            DateTime.TryParse(Console.ReadLine(), out DateTime dateOfBirth);
+            workerData.WorkerDateOfBirth = dateOfBirth;
+
+            Console.Write("Please input Place Of Birth: ");
+            workerData.WorkerPlaceOfBirth = Console.ReadLine();
+
+            workerData.WorkerId = workerId;
+            workerData.WorkerDate = DateTime.Now;
+
+            return workerData;
+        }
+
+
+        /// <summary>
+        /// Print header
+        /// </summary>
+        private static void PrintHeader()
+        {
+            Console.WriteLine($"|-----|------------------|------------------------------|-------|-------|------------------|--------------------|");
+            Console.WriteLine($"|{"ID",5}|{"DATE",18}|{"NAME",30}|{"AGE",7}|{"HEIGHT",7}|{"DATE OF BIRTH",18}|{"PLACE  OF BIRTH",20}|");
+            Console.WriteLine($"|-----|------------------|------------------------------|-------|-------|------------------|--------------------|");
+        }
+
+
         static void Main(string[] args)
         {
             int action = 0;
@@ -41,13 +83,15 @@ namespace Homework_07_Task_02
                 if (action < 0 || action > 9)
                     action = 0; //set default value
 
-
                 switch (action)
                 {
                     case 0:
                         Console.Write("Please input ID to print or [Enter] to print all: ");
 
                         string tmpString = Console.ReadLine();
+
+                        PrintHeader();
+
                         if (!String.IsNullOrEmpty(tmpString) & !String.IsNullOrWhiteSpace(tmpString))
                         {
                             int.TryParse(tmpString, out int idToPrint);
@@ -82,17 +126,21 @@ namespace Homework_07_Task_02
                         break;
 
                     case 4:
-                        Worker worker = new Worker();
-                        worker.GetWorkerFromConsole(jurnal.GetNextIndex());
 
-                        jurnal.Add(worker);
+                        jurnal.Add(GetWorkerFromConsole(jurnal.GetNextIndex()));
+
                         break;
 
                     case 5:
                         Console.Write("Please input ID which to edit: ");
                         int.TryParse(Console.ReadLine(), out int idToEdit);
 
-                        jurnal.Edit(Math.Max(0, idToEdit - 1));
+                        // show data of worker which will be edited
+                        PrintHeader();
+                        jurnal.PrintJurnal(idToEdit);
+
+                        jurnal.Edit(idToEdit, GetWorkerFromConsole(idToEdit));
+
                         break;
 
                     case 6:
@@ -117,7 +165,9 @@ namespace Homework_07_Task_02
 
             } while (action != 9);
 
-
+                                                                           
         }
+
+
     }
 }

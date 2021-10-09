@@ -97,37 +97,6 @@ namespace Homework_07_Task_02
             return $"|{this.WorkerId,5}|{this.workerDate,18}|{this.workerName,30}|{this.workerAge,7}|{this.workerHeight,7}|{this.workerDateOfBirth,18}|{this.workerPlaceOfBirth,20}|";
         }
 
-        /// <summary>
-        /// Read inputs from console
-        /// </summary>
-        /// <param name="newId"></param>
-        /// <returns></returns>
-        public Worker GetWorkerFromConsole(int newId)
-        {
-            Console.Write("Please input Name: ");
-            this.workerName = Console.ReadLine();
-
-            Console.Write("Please input Age: ");
-            int.TryParse(Console.ReadLine(), out int age);
-            this.workerAge = age;
-
-            Console.Write("Please input Height: ");
-            int.TryParse(Console.ReadLine(), out int height);
-            this.workerHeight = height;
-
-            Console.Write("Please input Date Of Birth [dd.mm.yyyy]: ");
-            DateTime.TryParse(Console.ReadLine(), out DateTime dateOfBirth);
-            this.WorkerDateOfBirth = dateOfBirth;
-
-            Console.Write("Please input Place Of Birth: ");
-            this.workerPlaceOfBirth = Console.ReadLine();
-
-            this.workerId = newId;
-            this.workerDate = DateTime.Now;
-
-            return this;
-        }
-
 
         #endregion
 

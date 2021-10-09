@@ -115,60 +115,43 @@ namespace Homework_07_Task_02
         /// <summary>
         /// Edit worker
         /// </summary>
-        /// <param name="noteId"></param>
-        public void Edit(int workerId)
+        /// <param name="workerId"></param>
+        public void Edit(int workerId, Worker newWorker)
         {
-            if (workerId >= 0 & workerId <= this.index)
+            int workerIdx = -1;
+
+            // get the worker's index which to be edited
+            for (int i = 0; i < this.workers.Length; i++)
             {
-                Console.Write("Please input Name or press [Enter]: ");
-                string tmpString = Console.ReadLine();
-                if (!String.IsNullOrEmpty(tmpString) & !String.IsNullOrWhiteSpace(tmpString))   // check if input greater than blank
-                    this.workers[workerId].WorkerName = tmpString;
-
-                Console.Write("Please input Age or press [Enter]: ");
-                tmpString = Console.ReadLine();
-                if (!String.IsNullOrEmpty(tmpString) & !String.IsNullOrWhiteSpace(tmpString))   // check if input greater than blank
+                if (this.workers[i].WorkerId == workerId)
                 {
-                    int.TryParse(tmpString, out int age);
-                    this.workers[workerId].WorkerAge = age;
+                    workerIdx = i;
+                    break;
                 }
+            }
+            
+            if (workerIdx >= 0 & workerIdx < this.workers.Length)
+            {
+                this.workers[workerIdx].WorkerName = newWorker.WorkerName;
+                this.workers[workerIdx].WorkerAge = newWorker.WorkerAge;
+                this.workers[workerIdx].WorkerHeight = newWorker.WorkerHeight;
+                this.workers[workerIdx].WorkerDateOfBirth = newWorker.WorkerDateOfBirth;
+                this.workers[workerIdx].WorkerPlaceOfBirth = newWorker.WorkerPlaceOfBirth;
 
-                Console.Write("Please input Height or press [Enter]: ");
-                tmpString = Console.ReadLine();
-                if (!String.IsNullOrEmpty(tmpString) & !String.IsNullOrWhiteSpace(tmpString))   // check if input greater than blank
-                {
-                    int.TryParse(tmpString, out int height);
-                    this.workers[workerId].WorkerHeight = height;
-                }
-
-                Console.Write("Please input Date Of Birth [dd.mm.yyyy] or press [Enter]: ");
-                tmpString = Console.ReadLine();
-                if (!String.IsNullOrEmpty(tmpString) & !String.IsNullOrWhiteSpace(tmpString))   // check if input greater than blank
-                {
-                    DateTime.TryParse(tmpString, out DateTime dateOfBirth);
-                    this.workers[workerId].WorkerDateOfBirth = dateOfBirth;
-                }
-
-                Console.Write("Please input Place Of Birth or press [Enter]: ");
-                tmpString = Console.ReadLine();
-                if (!String.IsNullOrEmpty(tmpString) & !String.IsNullOrWhiteSpace(tmpString))   // check if input greater than blank
-                    this.workers[workerId].WorkerPlaceOfBirth = tmpString;
-
-                this.workers[workerId].WorkerDate = DateTime.Now;
+                this.workers[workerIdx].WorkerDate = DateTime.Now;
             }
         }
 
         /// <summary>
         /// Load jurnal from file
         /// </summary>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
         public void Load(DateTime? fromDate = null, DateTime? toDate = null)
         {
             // check if file exits. If not then create it
             if (!File.Exists(this.filePath))
             {
-                Console.WriteLine($"File {this.filePath} is not exists! Press any key to create new file...");
-                Console.ReadLine();
-
                 File.WriteAllText(this.filePath, "");
             }
 
@@ -228,22 +211,13 @@ namespace Homework_07_Task_02
             }
         }
 
-        /// <summary>
-        /// Print header
-        /// </summary>
-        private void PrintHeader()
-        {
-            Console.WriteLine($"|-----|------------------|------------------------------|-------|-------|------------------|--------------------|");
-            Console.WriteLine($"|{"ID",5}|{"DATE",18}|{"NAME",30}|{"AGE",7}|{"HEIGHT",7}|{"DATE OF BIRTH",18}|{"PLACE  OF BIRTH",20}|");
-            Console.WriteLine($"|-----|------------------|------------------------------|-------|-------|------------------|--------------------|");
-        }
 
         /// <summary>
         /// Show jurnal content
         /// </summary>
         public void PrintJurnal(int? idToPrint = null)
         {
-            PrintHeader();
+            //PrintHeader();
 
             foreach (Worker w in this.workers)
             {
