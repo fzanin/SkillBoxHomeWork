@@ -190,10 +190,17 @@ namespace Homework_08
 
 
 
+        //public Department имя { get { return _department; } set { _departments = value; } }
+        //внутри Departments сделать public Worker имя { get { return _worker; } set { _worker = value; } }
+        //и обращаться organisation[i].Departments[j].Workers[k].Name
 
 
 
 
-        }
+
+
+
+
     }
+}
 }
