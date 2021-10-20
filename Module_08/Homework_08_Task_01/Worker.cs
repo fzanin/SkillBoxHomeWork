@@ -34,7 +34,7 @@ namespace Homework_08_Task_01
         /// <summary>
         /// Worker department
         /// </summary>
-        private string department;
+        private Department department;
 
         /// <summary>
         /// Worker salary
@@ -53,7 +53,7 @@ namespace Homework_08_Task_01
         public string FirstName { get => firstName; set => firstName = value; }
         public string LastName { get => lastName; set => lastName = value; }
         public int Age { get => age; set => age = value; }
-        public string Department { get => department; set => department = value; }
+        public Department Department { get => department; set => department = value; }
         public int  Salary { get => salary; set => salary = value; }
         public int ProjectsCounter { get => projectsCounter; set => projectsCounter = value; }
 
@@ -71,7 +71,7 @@ namespace Homework_08_Task_01
         /// <param name="Department"></param>
         /// <param name="Salary"></param>
         /// <param name="ProjectsCounter"></param>
-        public Worker(long Id = 0, string FirstName = "", string LastName = "", int Age = 0, string Department = "",
+        public Worker(long Id = 0, string FirstName = "", string LastName = "", int Age = 0, Department Department = new Department(),
                       int Salary = 0, int ProjectsCounter = 0)
         {
             this.id = Id;
@@ -81,6 +81,8 @@ namespace Homework_08_Task_01
             this.department = Department;
             this.salary = Salary;
             this.projectsCounter = ProjectsCounter;
+
+            
         }
         #endregion
 
@@ -91,7 +93,7 @@ namespace Homework_08_Task_01
         /// <returns></returns>
         public string Print()
         {
-            return $"{this.Id, 10} {this.FirstName, 15} {this.LastName, 15} {this.Age, 5} {this.Department, 15} {this.Salary, 10} {this.ProjectsCounter, 10}";
+            return $"{this.Id, 10} {this.FirstName, 15} {this.LastName, 15} {this.Age, 5} {this.Department.Name, 15} {this.Salary, 10} {this.ProjectsCounter, 10}";
         }
 
 

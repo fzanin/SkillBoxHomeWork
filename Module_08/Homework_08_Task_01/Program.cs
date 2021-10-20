@@ -10,32 +10,71 @@ namespace Homework_08_Task_01
     {
         static void Main(string[] args)
         {
+            //Organization organization = new Organization();
+
+
+            //organization.AddDepartment("Depart_1");
+            //organization.AddDepartment("Depart_2");
+
+            //organization.Departments.FindIndex(d => d.Name.Equals("Depart_1"))
+
+            //organization.AddWorker("Name_1", "Family_1", 18, organization.Departments[organization.Departments.FindIndex(d => d.Name.Equals("Depart_1"))], 15000, 3);
+            //organization.AddWorker("Name_2", "Family_2", 19, organization.Departments[organization.Departments.FindIndex(d => d.Name.Equals("Depart_1"))], 15000, 3);
+            //organization.AddWorker("Name_3", "Family_3", 20, organization.Departments[organization.Departments.FindIndex(d => d.Name.Equals("Depart_1"))], 15000, 3);
+
+            //PrintDepartmentHeader();
+            //foreach (Department d in organization.Departments)
+            //{
+            //    Console.WriteLine(d.Print());
+            //}
+            //Console.ReadLine();
+
+            //Department curDept = organization.Departments[organization.Departments.FindIndex(d => d.Name.Equals("Depart_1"))];
+            //curDept.IncrementWorkerCount();
+            //organization.Departments[organization.Departments.FindIndex(d => d.Name.Equals("Depart_1"))] = curDept;
+
+
+            //PrintDepartmentHeader();
+            //foreach (Department d in organization.Departments)
+            //{
+            //    Console.WriteLine(d.Print());
+            //}
+            //Console.ReadLine();
+
+
+
+            //organization.Departments[0].IncrementWorkerCount();
+
+            //organization.AddWorker("Name_4", "Family_4", 22, organization.Departments[organization.Departments.FindIndex(d => d.Name.Equals("Depart_2"))], 15000, 3);
+            //organization.AddWorker("Name_5", "Family_5", 23, organization.Departments[organization.Departments.FindIndex(d => d.Name.Equals("Depart_2"))], 15000, 3);
+            //organization.AddWorker("Name_6", "Family_6", 24, organization.Departments[organization.Departments.FindIndex(d => d.Name.Equals("Depart_2"))], 15000, 3);
 
             /// Create Organization dictionary
-            List<Department> departments = new List<Department>();
+            //List<Department> departments = new List<Department>();
             //departments = CreateOrganization(2, 10);
 
-            #region Print Departments
-            PrintDepartmentHeader();
-            foreach (Department d in departments)
-            {
-                Console.WriteLine(d.Print());
-            }
-            Console.ReadLine();
-            #endregion
 
-            #region Print Workers
-            Console.Clear();
-            PrintWorkerHeader();
-            foreach (Department d in departments)
-            {
-                foreach (string s in d.ShowWorkersInDepartment())
-                {
-                    Console.WriteLine(s);
-                }
-            }
-            Console.ReadLine();
-            #endregion
+
+            Organization organization = CreateOrganization(2, 10);
+
+            //#region Print Departments
+            //PrintDepartmentHeader();
+            //foreach (Department d in organization.Departments)
+            //{
+            //    Console.WriteLine(d.Print());
+            //}
+            //Console.ReadLine();
+            //#endregion
+
+            //#region Print Workers
+            //Console.Clear();
+            //PrintWorkerHeader();
+            //foreach (Worker w in organization.Workers)
+            //{
+            //    Console.WriteLine(w.Print());
+            //}
+            //Console.ReadLine();
+            //#endregion
 
 
             int action = 0;
@@ -77,7 +116,7 @@ namespace Homework_08_Task_01
                     case 0:
                         #region Print Departments
                         PrintDepartmentHeader();
-                        foreach (Department d in departments)
+                        foreach (Department d in organization.Departments)
                         {
                             Console.WriteLine(d.Print());
                         }
@@ -87,26 +126,21 @@ namespace Homework_08_Task_01
                         break;
 
                     case 1:
-                        Console.Write("Please input ID Department to print or [Enter] to print all: ");
+                        Console.Write("Please input Name of Department where workers are work to print or [Enter] to print all: ");
 
                         string tmpString = Console.ReadLine();
 
                         if (!String.IsNullOrEmpty(tmpString) & !String.IsNullOrWhiteSpace(tmpString))
                         {
-                            int.TryParse(tmpString, out int idToPrint);
+                            //int.TryParse(tmpString, out int idToPrint);
 
                             #region Print Workers of Department
                             Console.Clear();
                             PrintWorkerHeader();
-                            foreach (Department d in departments)
+                            foreach (Worker w in organization.Workers)
                             {
-                                if (d.Id == idToPrint)
-                                {
-                                    foreach (string s in d.ShowWorkersInDepartment())
-                                    {
-                                        Console.WriteLine(s);
-                                    }
-                                }
+                                if (w.Department.Name == tmpString)
+                                    Console.WriteLine(w.Print());
                             }
                             Console.ReadLine();
                             #endregion
@@ -116,12 +150,9 @@ namespace Homework_08_Task_01
                             #region Print All Workers
                             Console.Clear();
                             PrintWorkerHeader();
-                            foreach (Department d in departments)
+                            foreach (Worker w in organization.Workers)
                             {
-                                foreach (string s in d.ShowWorkersInDepartment())
-                                {
-                                    Console.WriteLine(s);
-                                }
+                                Console.WriteLine(w.Print());
                             }
                             Console.ReadLine();
                             #endregion
@@ -152,7 +183,7 @@ namespace Homework_08_Task_01
                         Console.Write("Please input count of Workers in each department: ");
                         int.TryParse(Console.ReadLine(), out int cntWorkers);
 
-                        departments = CreateOrganization(cntDepartments, cntWorkers);
+                        organization = CreateOrganization(cntDepartments, cntWorkers);
                         break;
 
 
@@ -211,30 +242,39 @@ namespace Homework_08_Task_01
         /// Create organization
         /// </summary>
         /// <returns></returns>
-        static List<Department> CreateOrganization(long departCount, long workerCount)
+        static Organization CreateOrganization(long departCount, long workerCount)
         {
-            List<Department> departments = new List<Department>();
+            Organization organization = new Organization();
             Random rand = new Random();
 
             for (long dx = 1; dx <= departCount; dx++)  // loop by departments
             {
-                List<Worker> workers = new List<Worker>();
+                organization.AddDepartment($"Department_{dx}");
 
                 for (long wx = 1; wx <= workerCount; wx++) // loop by workers
                 {
-                    workers.Add(new Worker(dx * (long)Math.Pow(10, workerCount.ToString().Length) + wx,
-                                $"Name_{wx}",
+                    //workers.Add(new Worker(dx * (long)Math.Pow(10, workerCount.ToString().Length) + wx,
+                    //            $"Name_{wx}",
+                    //            $"Family_{wx}",
+                    //            rand.Next(21, 65),
+                    //            $"Department_{dx}",
+                    //            rand.Next(1000, 2000),
+                    //            rand.Next(1, 5)));
+
+
+                    organization.AddWorker($"Name_{wx}",
                                 $"Family_{wx}",
                                 rand.Next(21, 65),
-                                $"Department_{dx}",
-                                rand.Next(1000, 2000),
-                                rand.Next(1, 5)));
+                                organization.Departments[organization.Departments.FindIndex(d => d.Name.Equals($"Department_{dx}"))],
+                                rand.Next(1, 3) * 15000,
+                                rand.Next(1, 5));
+
+                    organization.Departments[organization.Departments.FindIndex(d => d.Name.Equals($"Department_{dx}"))].IncrementWorkerCount();
                 }
 
-                departments.Add(new Department(dx, $"Department_{dx}", workers));
             }
 
-            return departments;
+            return organization;
         }
 
 

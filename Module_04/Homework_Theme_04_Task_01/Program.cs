@@ -173,7 +173,7 @@ namespace Homework_Theme_04_Task_01
                 for (int m = 0; m < rows; m++)
                 {
                     if (array[n, m] > 0)
-                        Console.Write("{0}", array[n, m].ToString().PadRight(10));
+                        Console.Write("{0}", array[n, m].ToString().PadRight(10, ' '));
                 }
                 Console.WriteLine("");
             }
