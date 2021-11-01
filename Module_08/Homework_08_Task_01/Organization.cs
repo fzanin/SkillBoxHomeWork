@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Homework_08_Task_01
 {
-    class Organization
+    public class Organization
     {
 
         #region Fields

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Homework_08_Task_01
 {
@@ -23,7 +25,7 @@ namespace Homework_08_Task_01
 
                 int.TryParse(Console.ReadLine(), out action);
 
-                if (action < 0 || action > 11)
+                if (action < 0 || action > 15)
                     action = 0; //set default value
 
                 string locDepartmentName;
@@ -219,6 +221,21 @@ namespace Homework_08_Task_01
                         break;
                     #endregion
 
+                    case 9:
+
+                        SerializeOrganization(organization, "zfv_organ.xml");
+                        SerializeDepartmentList(organization.Departments, "zfv_departs.xml");
+                        SerializeWorkerList(organization.Workers, "zfv_workers.xml");
+
+                        break;
+
+                    case 10:
+
+                        organization.Departments = DeserializeDepartmentList("zfv_departs.xml");
+                        organization.Workers = DeserializeWorkerList("zfv_workers.xml");
+
+                        break;
+
 
                     #region Print workers Sorted
                     case 11:
@@ -263,7 +280,7 @@ namespace Homework_08_Task_01
                 Console.WriteLine("Press any key to continue ...");
                 Console.ReadLine();
 
-            } while (action != 9);
+            } while (action != 15);
 
 
 
@@ -335,7 +352,7 @@ namespace Homework_08_Task_01
             Console.WriteLine("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣");
             Console.WriteLine("║   8 - Create Organization                                                                            ║");
             Console.WriteLine("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣");
-            Console.WriteLine("║   9 - Exit                                                                                           ║");
+            Console.WriteLine("║   15 - Exit      9 - to XML     10 - from XML                                                        ║");
             Console.WriteLine("╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝");
         }
 
@@ -357,6 +374,12 @@ namespace Homework_08_Task_01
             return number;
         }
 
+        /// <summary>
+        /// Read number from console and try to convert to int value or set with defaut value
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="defaultNumber"></param>
+        /// <returns></returns>
         private static int GetIntFromConsole(string text = "Number", int defaultNumber = -9999)
         {
             Console.WriteLine("Please input {0}: ", text);
@@ -374,6 +397,87 @@ namespace Homework_08_Task_01
             }
 
             return number;
+        }
+
+
+        static void SerializeOrganization(Organization Organ, string Path)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Organization));
+
+            Stream fStream = new FileStream(Path, FileMode.Create, FileAccess.Write);
+
+            xmlSerializer.Serialize(fStream, Organ);
+
+            fStream.Close();
+        }
+
+
+        static Worker DeserializeOrganization(string Path)
+        {
+            Organization tempOrgan = new Organization();
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Organization));
+
+            Stream fStream = new FileStream(Path, FileMode.Open, FileAccess.Read);
+
+            tempOrgan = xmlSerializer.Deserialize(fStream) as Organization;
+
+            fStream.Close();
+
+            return tempOrgan;
+        }
+
+
+        static void SerializeWorkerList(List<Worker> WorkerList, string Path)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Worker>));
+
+            Stream fStream = new FileStream(Path, FileMode.Create, FileAccess.Write);
+
+            xmlSerializer.Serialize(fStream, WorkerList);
+
+            fStream.Close();
+        }
+
+
+        static List<Worker> DeserializeWorkerList(string Path)
+        {
+            List<Worker> tempWorkerCol = new List<Worker>();
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Worker>));
+
+            Stream fStream = new FileStream(Path, FileMode.Open, FileAccess.Read);
+
+            tempWorkerCol = xmlSerializer.Deserialize(fStream) as List<Worker>;
+
+            fStream.Close();
+
+            return tempWorkerCol;
+        }
+
+
+        static void SerializeDepartmentList(List<Department> DepartmentList, string Path)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Department>));
+
+            Stream fStream = new FileStream(Path, FileMode.Create, FileAccess.Write);
+
+            xmlSerializer.Serialize(fStream, DepartmentList);
+
+            fStream.Close();
+        }
+
+
+        static List<Department> DeserializeDepartmentList(string Path)
+        {
+            List<Department> tempDepartCol = new List<Department>();
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Department>));
+
+            Stream fStream = new FileStream(Path, FileMode.Open, FileAccess.Read);
+
+            tempDepartCol = xmlSerializer.Deserialize(fStream) as List<Department>;
+
+            fStream.Close();
+
+            return tempDepartCol;
         }
 
 

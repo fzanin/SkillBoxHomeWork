@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Homework_08_Task_01
 {
-    struct Worker
+    public struct Worker
     {
 
         #region Internal Fields
