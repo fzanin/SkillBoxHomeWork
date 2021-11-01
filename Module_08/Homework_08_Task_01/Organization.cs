@@ -156,25 +156,11 @@ namespace Homework_08_Task_01
         /// <param name="workerProjectsCounter"></param>
         public void EditWorker(string workerOldName, string workerNewName, string workerLastName, string workerDepartmentName, int workerAge, int workerSalary, int workerProjectsCounter)
         {
-            //if (this.departments.Exists(x => x.Name == deptOldName)) 
-            //{
-            //    Department curDept = this.Departments[this.Departments.FindIndex(d => d.Name.Equals(deptOldName))];
-            //    curDept.Name = deptNewName;
-
-            //    var idxDept = this.Departments.FindIndex(d => d.Name == deptOldName); // get index of department
-
-            //    this.Departments[idxDept] = curDept;
-            //}
-
-
             var idxWork = this.Workers.FindIndex(w => w.FirstName == workerOldName); // get index of worker
-
-            //this.
 
             DeleteWorker(workerOldName);
 
             AddWorker(workerNewName, workerLastName, workerAge, workerDepartmentName, workerSalary, workerProjectsCounter);
-
         }
 
         /// <summary>

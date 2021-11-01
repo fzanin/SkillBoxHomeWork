@@ -117,16 +117,10 @@ namespace Homework_08_Task_01
                         Console.Write("Please input Worker Last name: ");
                         string workerFamily = Console.ReadLine();
 
-                        //Console.Write("Please input Worker Age: ");
-                        //int.TryParse(Console.ReadLine(), out int workerAge);
                         int workerAge = GetIntFromConsole("Age");
 
-                        //Console.Write("Please input Worker Salary: ");
-                        //int.TryParse(Console.ReadLine(), out int workerSalary);
                         int workerSalary = GetIntFromConsole("Salary");
 
-                        //Console.Write("Please input Worker Projects: ");
-                        //int.TryParse(Console.ReadLine(), out int workerProjects);
                         int workerProjects = GetIntFromConsole("Projects");
 
                         organization.AddWorker(workerName,
@@ -150,16 +144,10 @@ namespace Homework_08_Task_01
                     #region Edit Worker
                     case 7:
 
-                        //Console.Write("Please input Worker old First name: ");
-                        //var oldWorkerName = Console.ReadLine();
-                        //int currWorkerIndex = organization.GetWorkerIndex(oldWorkerName);
-
-
                         int oldWorkerId = GetIntFromConsole($"Worker ID for edit: ");
                         int currWorkerIndex = organization.GetWorkerIndex(oldWorkerId);
 
                         var oldWorkerName = organization.Workers[currWorkerIndex].FirstName;
-
 
                         Console.Write("Please input Worker new First name or press [Enter] to leave [{0}]: ", organization.Workers[currWorkerIndex].FirstName);
                         var newWorkerName = Console.ReadLine();
@@ -176,44 +164,31 @@ namespace Homework_08_Task_01
                         if (locWorkerFamily == "")
                             locWorkerFamily = organization.Workers[currWorkerIndex].LastName;
 
-                        //Console.Write("Please input Worker Age or press [Enter] to leave [{0}]: ", organization.Workers[currWorkerIndex].Age);
-                        //int.TryParse(Console.ReadLine(), out int locWorkerAge);
                         int locWorkerAge = GetIntFromConsole($"Worker Age or press [Enter] to leave [{organization.Workers[currWorkerIndex].Age}]", 
                                                              organization.Workers[currWorkerIndex].Age);
                         if (locWorkerAge == 0)
                             locWorkerAge = organization.Workers[currWorkerIndex].Age;
 
-                        //Console.Write("Please input Worker Salary or press [Enter] to leave [{0}]: ", organization.Workers[currWorkerIndex].Salary);
-                        //int.TryParse(Console.ReadLine(), out int locWorkerSalary);
                         int locWorkerSalary = GetIntFromConsole($"Worker Salary  or press [Enter] to leave [{organization.Workers[currWorkerIndex].Salary}]",
                                                                 organization.Workers[currWorkerIndex].Salary);
                         if (locWorkerSalary == 0)
                             locWorkerSalary = organization.Workers[currWorkerIndex].Salary;
 
-                        //Console.Write("Please input Worker Projects or press [Enter] to leave [{0}]: ", organization.Workers[currWorkerIndex].ProjectsCounter);
-                        //int.TryParse(Console.ReadLine(), out int locWorkerProjects);
                         int locWorkerProjects = GetIntFromConsole($"Worker Projects  or press [Enter] to leave [{organization.Workers[currWorkerIndex].ProjectsCounter}]",
                                                                   organization.Workers[currWorkerIndex].ProjectsCounter);
                         if (locWorkerProjects == 0)
                             locWorkerProjects = organization.Workers[currWorkerIndex].ProjectsCounter;
 
 
-                        //organization.EditWorker(oldWorkerName, newWorkerName, locWorkerFamily, locDepartmentName, locWorkerAge, locWorkerSalary, locWorkerProjects);
                         organization.EditWorker(oldWorkerId, newWorkerName, locWorkerFamily, locDepartmentName, locWorkerAge, locWorkerSalary, locWorkerProjects);
                         break;
                     #endregion
 
                     #region Create organization
                     case 8:
-                        //Console.Write("Please input count of Departments: ");
-                        //int.TryParse(Console.ReadLine(), out int cntDepartments);
                         int cntDepartments = GetIntFromConsole("count of Departments");
 
-
-                        //Console.Write("Please input count of Workers in each department: ");
-                        //int.TryParse(Console.ReadLine(), out int cntWorkers);
                         int cntWorkers = GetIntFromConsole("count of Workers in each department");
-
 
                         organization = CreateOrganization(cntDepartments, cntWorkers);
                         break;
@@ -357,6 +332,12 @@ namespace Homework_08_Task_01
             return number;
         }
 
+        /// <summary>
+        /// Get value from console
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="defaultNumber"></param>
+        /// <returns></returns>
         private static int GetIntFromConsole(string text = "Number", int defaultNumber = -9999)
         {
             Console.WriteLine("Please input {0}: ", text);
