@@ -221,6 +221,7 @@ namespace Homework_08_Task_01
                         break;
                     #endregion
 
+                    #region Serialize to XML
                     case 9:
 
                         SerializeOrganization(organization, "zfv_organ.xml");
@@ -228,13 +229,17 @@ namespace Homework_08_Task_01
                         SerializeWorkerList(organization.Workers, "zfv_workers.xml");
 
                         break;
+                    #endregion
 
+                    #region Deserialize from XML
                     case 10:
 
+                        organization = DeserializeOrganization("zfv_organ.xml");
                         organization.Departments = DeserializeDepartmentList("zfv_departs.xml");
                         organization.Workers = DeserializeWorkerList("zfv_workers.xml");
 
                         break;
+                    #endregion
 
 
                     #region Print workers Sorted
@@ -340,19 +345,17 @@ namespace Homework_08_Task_01
             Console.WriteLine("║                                               Main menu                                              ║");
             Console.WriteLine("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣");
             Console.WriteLine("║   0 - Print Departments                                                                              ║");
-            Console.WriteLine("║   1 - Print Workers / 11 - Print Sorted Workers                                                      ║");
+            Console.WriteLine("║   1 - Print Workers /       11 - Print Sorted Workers                                                ║");
             Console.WriteLine("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣");
-            Console.WriteLine("║   2 - Create Department                                                                              ║");
-            Console.WriteLine("║   3 - Delete Department                                                                              ║");
-            Console.WriteLine("║   4 - Edit   Department                                                                              ║");
-            Console.WriteLine("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣");
-            Console.WriteLine("║   5 - Create Worker                                                                                  ║");
-            Console.WriteLine("║   6 - Delete Worker                                                                                  ║");
-            Console.WriteLine("║   7 - Edit   Worker                                                                                  ║");
+            Console.WriteLine("║   2 - Create Department      5 - Create Worker                                                       ║");
+            Console.WriteLine("║   3 - Delete Department      6 - Delete Worker                                                       ║");
+            Console.WriteLine("║   4 - Edit   Department      7 - Edit   Worker                                                       ║");
             Console.WriteLine("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣");
             Console.WriteLine("║   8 - Create Organization                                                                            ║");
+            Console.WriteLine("║   9 - to XML                10 - from XML                                                            ║");
+            Console.WriteLine("║  12 - to JSON               13 - from JSON                                                           ║");
             Console.WriteLine("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣");
-            Console.WriteLine("║   15 - Exit      9 - to XML     10 - from XML                                                        ║");
+            Console.WriteLine("║  15 - Exit                                                                                           ║");
             Console.WriteLine("╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝");
         }
 
@@ -412,7 +415,7 @@ namespace Homework_08_Task_01
         }
 
 
-        static Worker DeserializeOrganization(string Path)
+        static Organization DeserializeOrganization(string Path)
         {
             Organization tempOrgan = new Organization();
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Organization));
