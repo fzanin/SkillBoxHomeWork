@@ -48,22 +48,6 @@ namespace Homework_08_Task_01
             this.workerCount = WorkerCount;
         }
 
-        /// <summary>
-        /// Show list workers of department
-        /// </summary>
-        /// <returns></returns>
-        //public List<string> ShowWorkersInDepartment()
-        //{
-        //    List<string> wl = new List<string>();
-
-        //    foreach(Worker w in this.Workers)
-        //    {
-        //        //wl.Add($"{w.Id, 10} {w.FirstName, 15} {w.LastName, 15} {w.Age, 5} {w.Department, 15} {w.Salary,10} {w.ProjectsCounter,10}");
-        //        wl.Add(w.Print());
-        //    }
-
-        //    return wl;
-        //}
 
         /// <summary>
         /// Print department info
@@ -89,7 +73,6 @@ namespace Homework_08_Task_01
         {
             this.WorkerCount--;
         }
-
 
     }
 }

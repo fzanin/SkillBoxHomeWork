@@ -156,25 +156,11 @@ namespace Homework_08_Task_01
         /// <param name="workerProjectsCounter"></param>
         public void EditWorker(string workerOldName, string workerNewName, string workerLastName, string workerDepartmentName, int workerAge, int workerSalary, int workerProjectsCounter)
         {
-            //if (this.departments.Exists(x => x.Name == deptOldName)) 
-            //{
-            //    Department curDept = this.Departments[this.Departments.FindIndex(d => d.Name.Equals(deptOldName))];
-            //    curDept.Name = deptNewName;
-
-            //    var idxDept = this.Departments.FindIndex(d => d.Name == deptOldName); // get index of department
-
-            //    this.Departments[idxDept] = curDept;
-            //}
-
-
             var idxWork = this.Workers.FindIndex(w => w.FirstName == workerOldName); // get index of worker
-
-            //this.
 
             DeleteWorker(workerOldName);
 
             AddWorker(workerNewName, workerLastName, workerAge, workerDepartmentName, workerSalary, workerProjectsCounter);
-
         }
 
         /// <summary>
@@ -269,8 +255,6 @@ namespace Homework_08_Task_01
         /// <param name="firstName"></param>
         public void DeleteWorker(string firstName)
         {
-            //this.workers.Add(new Worker(this.Workers.Count + 1, firstName, lastName, age, department, salary, projectsCounter));
-
             var idxWork = this.Workers.FindIndex(w=> w.FirstName == firstName); // get index of worker
 
             Department curDept = this.Departments[this.Departments.FindIndex(d => d.Name.Equals(this.Workers[idxWork].DepartmentName))]    ;
@@ -285,11 +269,8 @@ namespace Homework_08_Task_01
                 this.Workers.Remove(this.Workers[this.Workers.FindIndex(w => w.FirstName.Equals(firstName))]);
             }
 
-
             // update department
             this.Departments[idxDept] = curDept;
-
-
         }
 
         /// <summary>
@@ -298,8 +279,6 @@ namespace Homework_08_Task_01
         /// <param name="workerId"></param>
         public void DeleteWorker(int workerId)
         {
-            //this.workers.Add(new Worker(this.Workers.Count + 1, firstName, lastName, age, department, salary, projectsCounter));
-
             var idxWork = this.Workers.FindIndex(w => w.Id == workerId); // get index of worker
 
             Department curDept = this.Departments[this.Departments.FindIndex(d => d.Name.Equals(this.Workers[idxWork].DepartmentName))];
@@ -307,18 +286,15 @@ namespace Homework_08_Task_01
 
             var idxDept = this.Departments.FindIndex(d => d.Name == curDept.Name); // get index of department
 
-
             // remove worker
             if (this.Workers.Exists(x => x.Id == workerId)) // delete worker if it's exist only
             {
                 this.Workers.Remove(this.Workers[this.Workers.FindIndex(w => w.Id.Equals(workerId))]);
             }
 
-
             // update department
             this.Departments[idxDept] = curDept;
         }
-
 
     }
 }

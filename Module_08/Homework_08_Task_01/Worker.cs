@@ -81,8 +81,6 @@ namespace Homework_08_Task_01
             this.departmentName = DepartmentName;
             this.salary = Salary;
             this.projectsCounter = ProjectsCounter;
-
-            
         }
         #endregion
 
@@ -95,7 +93,6 @@ namespace Homework_08_Task_01
         {
             return $"{this.Id, 10} {this.FirstName, 15} {this.LastName, 15} {this.Age, 5} {this.DepartmentName, 15} {this.Salary, 10} {this.ProjectsCounter, 10}";
         }
-
 
         #endregion
 
