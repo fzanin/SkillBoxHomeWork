@@ -71,6 +71,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework_09", "Module_09\Ho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework_09_Task_01", "Module_09\Homework_09_Task_01\Homework_09_Task_01.csproj", "{2CD3A5BC-DCB7-46A9-8F9B-7B9929584AF2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework_09_Task_01_Core", "Module_09\Homework_09_Task_01_Core\Homework_09_Task_01_Core.csproj", "{E5D1DEA9-E938-4CDC-BCA9-D0B77886264D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -181,6 +183,10 @@ Global
 		{2CD3A5BC-DCB7-46A9-8F9B-7B9929584AF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CD3A5BC-DCB7-46A9-8F9B-7B9929584AF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CD3A5BC-DCB7-46A9-8F9B-7B9929584AF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5D1DEA9-E938-4CDC-BCA9-D0B77886264D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5D1DEA9-E938-4CDC-BCA9-D0B77886264D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5D1DEA9-E938-4CDC-BCA9-D0B77886264D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5D1DEA9-E938-4CDC-BCA9-D0B77886264D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -212,6 +218,7 @@ Global
 		{89C31FCB-4131-4D3F-9D7B-A9A664B691F8} = {B65E2E44-3EFE-4A89-B162-A47A9E0F474A}
 		{DCF8C687-D6B6-4E61-AF0A-BA88C65B7691} = {BB9D8D1C-DD96-4880-A9B6-FC8A0A37DDCD}
 		{2CD3A5BC-DCB7-46A9-8F9B-7B9929584AF2} = {BB9D8D1C-DD96-4880-A9B6-FC8A0A37DDCD}
+		{E5D1DEA9-E938-4CDC-BCA9-D0B77886264D} = {BB9D8D1C-DD96-4880-A9B6-FC8A0A37DDCD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EC02C299-F875-4A8D-9955-FED6A0C649DD}
