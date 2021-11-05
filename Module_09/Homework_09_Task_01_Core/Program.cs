@@ -25,8 +25,8 @@ namespace Homework_09_Task_01_Core
                 string url = $"{startUrl}getUpdates?offset={update_id}";
                 var r = wc.DownloadString(url);
 
-                //Console.WriteLine(r);
-                //Console.ReadLine();
+                Console.WriteLine(r);
+                Console.ReadLine();
 
                 var msgs = JObject.Parse(r)["result"];//.to.ToArray();
 
