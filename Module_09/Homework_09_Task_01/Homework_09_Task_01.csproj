@@ -55,14 +55,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BotController.cs" />
-    <Compile Include="LogHelper.cs" />
+    <Compile Include="Controllers\BotController.cs" />
+    <Compile Include="Helpers\LogHelper.cs" />
+    <Compile Include="Helpers\PhraseHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Resources\StatementBase.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
