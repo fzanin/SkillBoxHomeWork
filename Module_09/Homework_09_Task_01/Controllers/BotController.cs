@@ -8,6 +8,7 @@ using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.ReplyMarkups;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.InputFiles;
 using System.IO;
 
 namespace Homework_09_Task_01
@@ -53,7 +54,11 @@ namespace Homework_09_Task_01
             botClient.StartReceiving();
         }
 
-
+        /// <summary>
+        /// Call back query receiver
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         [Obsolete]
         private static async void BotOnCallbackQueryReceiver(object sender, CallbackQueryEventArgs e)
         {
@@ -97,6 +102,48 @@ namespace Homework_09_Task_01
         }
 
         /// <summary>
+        /// Upload file
+        /// </summary>
+        /// <param name="chatId"></param>
+        static async void UploadFile(long chatId)
+        {
+
+            string filePathName = $"{downloadFolder}/{"Aaaaaaaa.txt"}";
+
+            using (var fs = new FileStream(filePathName, FileMode.Open))
+            {
+                InputOnlineFile inputOnlineFile = new InputOnlineFile(fs, filePathName);
+                await botClient.SendDocumentAsync(chatId, inputOnlineFile);
+
+            }
+
+        }
+
+
+        /// <summary>
+        /// Get list of files inside current folder
+        /// </summary>
+        /// <returns></returns>
+        static List<string> GetFilesList()
+        {
+            List<string> files = new List<string>();
+
+            DirectoryInfo dir = new DirectoryInfo(downloadFolder); 
+
+            FileInfo[] Files = dir.GetFiles("*.*");
+
+            foreach (FileInfo file in Files)
+            {
+                files.Add(file.Name);
+                
+            }
+
+            return files;
+        }
+
+
+
+        /// <summary>
         /// Messages handler
         /// </summary>
         /// <param name="sender"></param>
@@ -109,72 +156,34 @@ namespace Homework_09_Task_01
             if (msg == null /*|| msg.Type != MessageType.Text || msg.Type != MessageType.Document*/)
                 return;
 
-            //if (msg.Type == MessageType.Document)
-            //{
-            //    //var locPath = Directory.GetCurrentDirectory();
-
-            //    string locPath = "D:\\";
-
-            //    DownloadFile(botClient, msg.Document.FileId, locPath);
-            //}
-
-            //string downloadPath = "Downloads";
+            string fileSuffix = "File";
 
             Logger.Logging($"chat:[{msg.Chat.Id}] user:[{msg.From.FirstName} {msg.From.LastName}] message:[{msg.Text}]");
 
-            //switch (msg.Text)
             switch (msg.Type)
             {
                 case MessageType.Text:
                     CheckTextMessage(msg.Text.ToLower(), msg.Chat.Id);
                     break;
 
-                    //case "/menu":
-
-                    //    var inLineKeyboard = new InlineKeyboardMarkup(new[]
-                    //    {
-                    //        new[]
-                    //        {
-                    //            InlineKeyboardButton.WithUrl("Google", "https://google.com"),
-                    //            InlineKeyboardButton.WithUrl("Telegram", "https://t.me")
-                    //        },
-                    //        new []
-                    //        {
-                    //            InlineKeyboardButton.WithCallbackData("Item #1"),
-                    //            InlineKeyboardButton.WithCallbackData("Item #2")
-                    //        }
-                    //    });
-
-                    //    await botClient.SendTextMessageAsync(msg.From.Id, "Select", replyMarkup: inLineKeyboard);
-
-                    //    break;
-
-                    
-
                 case MessageType.Document:
                     DownloadFile(msg.Document.FileId, msg.Type.ToString(), msg.Document.FileName,  msg.Chat.Id);
                     break;
 
                 case MessageType.Audio:
-                    //if (!Directory.Exists($"{downloadPath}/{msg.Type}"))
-                    //    Directory.CreateDirectory($"{downloadPath}/{msg.Type}");
-
                     string audioType = msg.Audio.MimeType.Replace(@"audio/", "");
 
-                    DownloadFile(msg.Audio.FileId, $@"{msg.Type}", $@"{msg.Type}_{00/*itemsCount*/}.{audioType}", msg.Chat.Id);
+                    DownloadFile(msg.Audio.FileId, msg.Type.ToString(), $@"{msg.Type}_{fileSuffix}.{audioType}", msg.Chat.Id);
                     break;
 
                 case MessageType.Photo:
-                    DownloadFile(msg.Photo[msg.Photo.Length - 1].FileId, msg.Type.ToString()/*$@"{msg.Type}"*/, $@"/{msg.Type.ToString()}_{00/*itemsCount*/}.jpg", msg.Chat.Id);
+                    DownloadFile(msg.Photo[msg.Photo.Length - 1].FileId, msg.Type.ToString(), $@"/{msg.Type.ToString()}_{fileSuffix}.jpg", msg.Chat.Id);
                     break;
 
                 case MessageType.Video:
-                    //if (!Directory.Exists($"{downloadPath}/{msg.Type}"))
-                    //    Directory.CreateDirectory($"{downloadPath}/{msg.Type}");
-
                     string vidoType = msg.Video.MimeType.Replace(@"video/", "");
 
-                    DownloadFile(msg.Video.FileId, $@"{msg.Type}", $@"Video_{00/*itemsCount*/}.{vidoType}", msg.Chat.Id);
+                    DownloadFile(msg.Video.FileId, msg.Type.ToString(), $@"{msg.Type.ToString()}_{fileSuffix}.{vidoType}", msg.Chat.Id);
                     break;
 
                 default:
@@ -192,10 +201,6 @@ namespace Homework_09_Task_01
         {
             string replyMessage = "";
 
-            //if (!phraser.IsRussian(textMessage))
-            //    textMessage = "/english";
-
-
             switch (textMessage)
             {
                 case "/start":
@@ -209,7 +214,21 @@ namespace Homework_09_Task_01
                     break;
 
                 case "/list":
-                    replyMessage = "Хоп-хей ла-ла-лей! \nТут будет список...)))";
+                    replyMessage = "Хоп-хей ла-ла-лей! \nБудет список веселей ...)))";
+
+                    List<string> listOfFiles = GetFilesList();
+
+                    foreach (string f in listOfFiles)
+                    {
+                        await botClient.SendTextMessageAsync(chatId, f);
+                    }
+
+                    break;
+
+                case "/upload":
+                    //replyMessage = "Лови ...";
+
+                    UploadFile(chatId);
                     break;
 
 
@@ -223,7 +242,8 @@ namespace Homework_09_Task_01
 
             }
 
-            await botClient.SendTextMessageAsync(chatId, replyMessage);
+            if (replyMessage.Length > 0)
+                await botClient.SendTextMessageAsync(chatId, replyMessage);
         }
 
 
