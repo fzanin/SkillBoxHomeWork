@@ -14,10 +14,11 @@ namespace Homework_09_Task_01
 {
     class BotController
     {
+        private static string downloadFolder;           // where we save downloaded files
 
-        private static TelegramBotClient botClient;
-        private static LogHelper Logger;
-        private static PhraseHelper phraser;
+        private static TelegramBotClient botClient;     // bot client definition
+        private static LogHelper Logger;                // helper for messages logging
+        private static PhraseHelper phraser;            // helper for phrase generating
 
         /// <summary>
         /// Constructor
@@ -26,6 +27,9 @@ namespace Homework_09_Task_01
         [Obsolete]
         public BotController(string token)
         {
+            // here we will save all received files
+            downloadFolder = "Downloads";
+
             // initialize the LOGGER
             /*LogHelper*/ Logger = new LogHelper();
 
@@ -61,16 +65,22 @@ namespace Homework_09_Task_01
             await botClient.AnswerCallbackQueryAsync(e.CallbackQuery.Id, $"You press command [{buttonText}]");
         }
 
-
+        /// <summary>
+        /// Download file
+        /// </summary>
+        /// <param name="fileId"></param>
+        /// <param name="filePath"></param>
+        /// <param name="fileName"></param>
+        /// <param name="chatId"></param>
         static async void DownloadFile(string fileId, string filePath, string fileName, long chatId)
         {
             try
             {
-                string filePathName = $"Downloads/{filePath}/{fileName}";
+                string filePathName = $"{downloadFolder}/{fileName}"; //$"Downloads/{filePath}/{fileName}";
 
                 // check if folder is exists
-                if (!Directory.Exists(filePathName))
-                    Directory.CreateDirectory(filePathName);
+                if (!Directory.Exists(downloadFolder))
+                    Directory.CreateDirectory(downloadFolder);
 
 
                 var file = await botClient.GetFileAsync(fileId);
@@ -86,9 +96,11 @@ namespace Homework_09_Task_01
             }
         }
 
-
-
-
+        /// <summary>
+        /// Messages handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         [Obsolete]
         private void BotOnMessageReceiver(object sender, MessageEventArgs e)
         {
@@ -96,7 +108,6 @@ namespace Homework_09_Task_01
 
             if (msg == null /*|| msg.Type != MessageType.Text || msg.Type != MessageType.Document*/)
                 return;
-
 
             //if (msg.Type == MessageType.Document)
             //{
@@ -114,18 +125,8 @@ namespace Homework_09_Task_01
             //switch (msg.Text)
             switch (msg.Type)
             {
-
-
-                case MessageType.Text://"/start":
-                    //string text = "List of commands:            \n " +
-                    //              "  /start    - bot start      \n " +
-                    //              "  /menu     - show menu      \n " +
-                    //              "  /keyboard - show keyboard  ";
-                    //await botClient.SendTextMessageAsync(msg.From.Id, text);
-
+                case MessageType.Text:
                     CheckTextMessage(msg.Text.ToLower(), msg.Chat.Id);
-
-
                     break;
 
                     //case "/menu":
@@ -151,13 +152,7 @@ namespace Homework_09_Task_01
                     
 
                 case MessageType.Document:
-                    //if (!Directory.Exists($"Downloads/{msg.Type}"))
-                    //    Directory.CreateDirectory($"Downloads/{msg.Type}");
-
-                    //DownloadFile(msg.Document.FileId, $@"{downloadPath}/{msg.Type}/{msg.Document.FileName}",  msg.Chat.Id);
                     DownloadFile(msg.Document.FileId, msg.Type.ToString(), msg.Document.FileName,  msg.Chat.Id);
-
-                    //return;
                     break;
 
                 case MessageType.Audio:
@@ -170,10 +165,7 @@ namespace Homework_09_Task_01
                     break;
 
                 case MessageType.Photo:
-                    //if (!Directory.Exists($"{downloadPath}/{msg.Type}"))
-                    //    Directory.CreateDirectory($"{downloadPath}/{msg.Type}"); 
-
-                    DownloadFile(msg.Photo[msg.Photo.Length - 1].FileId, $@"{msg.Type}", $@"/Img_{00/*itemsCount*/}.jpg", msg.Chat.Id);
+                    DownloadFile(msg.Photo[msg.Photo.Length - 1].FileId, msg.Type.ToString()/*$@"{msg.Type}"*/, $@"/{msg.Type.ToString()}_{00/*itemsCount*/}.jpg", msg.Chat.Id);
                     break;
 
                 case MessageType.Video:
@@ -185,57 +177,54 @@ namespace Homework_09_Task_01
                     DownloadFile(msg.Video.FileId, $@"{msg.Type}", $@"Video_{00/*itemsCount*/}.{vidoType}", msg.Chat.Id);
                     break;
 
-
-
-                //                case "/keyboard":
-
-                //                    var replyKeyboard = new ReplyKeyboardMarkup(new[]
-                //{
-                //                        new[]
-                //                        {
-                //                            new KeyboardButton("Hi"),
-                //                            new KeyboardButton("How are you?")
-                //                        },
-                //                        new []
-                //                        {
-                //                            new KeyboardButton("Contact") {RequestContact = true},
-                //                            new KeyboardButton("Location") {RequestLocation = true}
-                //                        }
-                //                    });
-
-                //                    await botClient.SendTextMessageAsync(msg.Chat.Id, "Message", replyMarkup: replyKeyboard);
-
-                //                    break;
-
                 default:
                     break;
             }
 
         }
 
-
+        /// <summary>
+        /// Checker for received text messages
+        /// </summary>
+        /// <param name="textMessage"></param>
+        /// <param name="chatId"></param>
         public async void CheckTextMessage(string textMessage, long chatId)
         {
             string replyMessage = "";
+
+            //if (!phraser.IsRussian(textMessage))
+            //    textMessage = "/english";
+
+
             switch (textMessage)
             {
-                case "hi":
-                    replyMessage = "Hop-hey, la-la-lay! \nI don't know how else to say...";//"Hello. How are you... Но на будущее - говори по русски...)))";
+                case "/start":
+                    replyMessage = "Хоп-хей ла-ла-лей! \nНу погнали чтоли ..." +
+                                   "Можем поболтать или покидаться друг в дружку файлами.\n" +
+                                   "Для просмотра списка файлов жмакни /list";
+                    break;
+
+                case "/english":
+                    replyMessage = "Hop-hey, la-la-lay! \nI don't know what else to say... \nНо на будущее - говори по русски...)))";
+                    break;
+
+                case "/list":
+                    replyMessage = "Хоп-хей ла-ла-лей! \nТут будет список...)))";
                     break;
 
 
-
-
                 default:
-                    replyMessage = phraser.GetRandomPhrase();//"Hop-hey, la-la-lay! \nI don't know how else to say...";
+                    if (!phraser.IsRussian(textMessage))
+                        replyMessage = "Hop-hey, la-la-lay! \nI don't know what else to say... \nНо на будущее - говори по русски...)))";
+                    else
+                        replyMessage = phraser.GetRandomPhrase();
+
                     break;
 
             }
 
             await botClient.SendTextMessageAsync(chatId, replyMessage);
         }
-
-
 
 
     }
