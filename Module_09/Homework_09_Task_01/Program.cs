@@ -34,8 +34,6 @@ namespace Homework_09_Task_01
                 Console.WriteLine($"Can't find token file: {path} \nPress any key for Exit!");
             }
 
-            //string botToken = "2063385048:AAExMggPQfFvRov0ckLf3y1hdickAci6Zlw";
-
 
             Console.ReadLine();
 
