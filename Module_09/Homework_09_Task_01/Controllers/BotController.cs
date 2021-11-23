@@ -32,7 +32,7 @@ namespace Homework_09_Task_01
             downloadFolder = "Downloads";
 
             // initialize the LOGGER
-            /*LogHelper*/ Logger = new LogHelper();
+            Logger = new LogHelper();
 
             // initialize the PHRASER
             phraser = new PhraseHelper();
@@ -81,7 +81,7 @@ namespace Homework_09_Task_01
         {
             try
             {
-                string filePathName = $"{downloadFolder}/{fileName}"; //$"Downloads/{filePath}/{fileName}";
+                string filePathName = $"{downloadFolder}/{fileName}"; 
 
                 // check if folder is exists
                 if (!Directory.Exists(downloadFolder))
@@ -105,18 +105,23 @@ namespace Homework_09_Task_01
         /// Upload file
         /// </summary>
         /// <param name="chatId"></param>
-        static async void UploadFile(long chatId)
+        static async void UploadFile(long chatId, string fileName)
         {
-
-            string filePathName = $"{downloadFolder}/{"Aaaaaaaa.txt"}";
-
-            using (var fs = new FileStream(filePathName, FileMode.Open))
+            try
             {
-                InputOnlineFile inputOnlineFile = new InputOnlineFile(fs, filePathName);
-                await botClient.SendDocumentAsync(chatId, inputOnlineFile);
+                string filePathName = $"{downloadFolder}/{fileName}";
+
+                using (var fs = new FileStream(filePathName, FileMode.Open))
+                {
+                    InputOnlineFile inputOnlineFile = new InputOnlineFile(fs, filePathName);
+                    await botClient.SendDocumentAsync(chatId, inputOnlineFile);
+                }
 
             }
-
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error uploading: " + ex.Message);
+            }
         }
 
 
@@ -142,7 +147,6 @@ namespace Homework_09_Task_01
         }
 
 
-
         /// <summary>
         /// Messages handler
         /// </summary>
@@ -156,7 +160,7 @@ namespace Homework_09_Task_01
             if (msg == null /*|| msg.Type != MessageType.Text || msg.Type != MessageType.Document*/)
                 return;
 
-            string fileSuffix = "File";
+            string fileSuffix = "_File";
 
             Logger.Logging($"chat:[{msg.Chat.Id}] user:[{msg.From.FirstName} {msg.From.LastName}] message:[{msg.Text}]");
 
@@ -173,17 +177,17 @@ namespace Homework_09_Task_01
                 case MessageType.Audio:
                     string audioType = msg.Audio.MimeType.Replace(@"audio/", "");
 
-                    DownloadFile(msg.Audio.FileId, msg.Type.ToString(), $@"{msg.Type}_{fileSuffix}.{audioType}", msg.Chat.Id);
+                    DownloadFile(msg.Audio.FileId, msg.Type.ToString(), $@"{msg.Type}{fileSuffix}.{audioType}", msg.Chat.Id);
                     break;
 
                 case MessageType.Photo:
-                    DownloadFile(msg.Photo[msg.Photo.Length - 1].FileId, msg.Type.ToString(), $@"/{msg.Type.ToString()}_{fileSuffix}.jpg", msg.Chat.Id);
+                    DownloadFile(msg.Photo[msg.Photo.Length - 1].FileId, msg.Type.ToString(), $@"/{msg.Type.ToString()}{fileSuffix}.jpg", msg.Chat.Id);
                     break;
 
                 case MessageType.Video:
                     string vidoType = msg.Video.MimeType.Replace(@"video/", "");
 
-                    DownloadFile(msg.Video.FileId, msg.Type.ToString(), $@"{msg.Type.ToString()}_{fileSuffix}.{vidoType}", msg.Chat.Id);
+                    DownloadFile(msg.Video.FileId, msg.Type.ToString(), $@"{msg.Type.ToString()}{fileSuffix}.{vidoType}", msg.Chat.Id);
                     break;
 
                 default:
@@ -214,26 +218,44 @@ namespace Homework_09_Task_01
                     break;
 
                 case "/list":
-                    replyMessage = "Хоп-хей ла-ла-лей! \nБудет список веселей ...)))";
+                    replyMessage = ""; //"Хоп-хей ла-ла-лей! \nБудет список веселей ...)))";
 
                     List<string> listOfFiles = GetFilesList();
 
+                    //foreach (string f in listOfFiles)
+                    //{
+                    //    string fileLink = $"/File_{f}";
+                    //    //await botClient.SendTextMessageAsync(chatId, $@"/File {f}");
+                    //    await botClient.SendTextMessageAsync(chatId, @fileLink);
+                    //}
+
+                    var rkm = new ReplyKeyboardMarkup();
+                    var rows = new List<KeyboardButton[]>();
+                    var cols = new List<KeyboardButton>();
+
                     foreach (string f in listOfFiles)
                     {
-                        await botClient.SendTextMessageAsync(chatId, f);
+                        cols.Add(new KeyboardButton(f));
+                        rows.Add(cols.ToArray());
+                        cols = new List<KeyboardButton>();
                     }
+
+                    rkm.Keyboard = rows.ToArray();
+                    await botClient.SendTextMessageAsync(chatId, "Нажми на кнопку - получишь результат ...", replyMarkup: rkm);
 
                     break;
 
                 case "/upload":
-                    //replyMessage = "Лови ...";
-
-                    UploadFile(chatId);
+                    UploadFile(chatId, "Aaaaaaaa.txt");
                     break;
 
 
                 default:
-                    if (!phraser.IsRussian(textMessage))
+
+                     // check if it's command to upload the file
+                    if (textMessage.Contains(".txt") || textMessage.Contains(".jpg") || textMessage.Contains(".mp4") || textMessage.Contains(".mpeg"))
+                        UploadFile(chatId, textMessage);
+                    else if (!phraser.IsRussian(textMessage))
                         replyMessage = "Hop-hey, la-la-lay! \nI don't know what else to say... \nНо на будущее - говори по русски...)))";
                     else
                         replyMessage = phraser.GetRandomPhrase();
