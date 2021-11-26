@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module_02", "Module_02", "{B490DB69-D7BA-4C79-9F6D-9A8993E699AD}"
 EndProject
@@ -79,7 +79,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework_10", "Module_10\Ho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework_10_Task_01", "Module_10\Homework_10_Task_01\Homework_10_Task_01.csproj", "{17FE2C9A-2E16-4602-95A9-FABE8E32D916}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework_10_Task_01_Core", "Module_10\Homework_10_Task_01_Core\Homework_10_Task_01_Core.csproj", "{312E5380-77AD-49F4-B304-20CE0C3797BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Homework_10_Task_01_Core", "Module_10\Homework_10_Task_01_Core\Homework_10_Task_01_Core.csproj", "{312E5380-77AD-49F4-B304-20CE0C3797BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework_10_Task_MVVM", "Module_10\Homework_10_Task_MVVM\Homework_10_Task_MVVM.csproj", "{51C3C01F-111D-4256-92C9-50E9C0202A40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -207,6 +209,10 @@ Global
 		{312E5380-77AD-49F4-B304-20CE0C3797BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{312E5380-77AD-49F4-B304-20CE0C3797BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{312E5380-77AD-49F4-B304-20CE0C3797BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51C3C01F-111D-4256-92C9-50E9C0202A40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51C3C01F-111D-4256-92C9-50E9C0202A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51C3C01F-111D-4256-92C9-50E9C0202A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51C3C01F-111D-4256-92C9-50E9C0202A40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -242,6 +248,7 @@ Global
 		{514DD4BE-6262-4272-BE46-7DFD5A1040FC} = {AA27C614-73FF-46C3-9068-2B11B7399058}
 		{17FE2C9A-2E16-4602-95A9-FABE8E32D916} = {AA27C614-73FF-46C3-9068-2B11B7399058}
 		{312E5380-77AD-49F4-B304-20CE0C3797BE} = {AA27C614-73FF-46C3-9068-2B11B7399058}
+		{51C3C01F-111D-4256-92C9-50E9C0202A40} = {AA27C614-73FF-46C3-9068-2B11B7399058}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EC02C299-F875-4A8D-9955-FED6A0C649DD}
