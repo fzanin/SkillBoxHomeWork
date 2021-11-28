@@ -83,6 +83,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Homework_10_Task_01_Core", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework_10_Task_MVVM", "Module_10\Homework_10_Task_MVVM\Homework_10_Task_MVVM.csproj", "{51C3C01F-111D-4256-92C9-50E9C0202A40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework_10_Example_MVVM", "Module_10\Homework_10_Example_MVVM\Homework_10_Example_MVVM.csproj", "{8B0D2414-C556-4D7C-AB6D-3E97AB2AD87A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -213,6 +215,10 @@ Global
 		{51C3C01F-111D-4256-92C9-50E9C0202A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51C3C01F-111D-4256-92C9-50E9C0202A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51C3C01F-111D-4256-92C9-50E9C0202A40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B0D2414-C556-4D7C-AB6D-3E97AB2AD87A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B0D2414-C556-4D7C-AB6D-3E97AB2AD87A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B0D2414-C556-4D7C-AB6D-3E97AB2AD87A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B0D2414-C556-4D7C-AB6D-3E97AB2AD87A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -249,6 +255,7 @@ Global
 		{17FE2C9A-2E16-4602-95A9-FABE8E32D916} = {AA27C614-73FF-46C3-9068-2B11B7399058}
 		{312E5380-77AD-49F4-B304-20CE0C3797BE} = {AA27C614-73FF-46C3-9068-2B11B7399058}
 		{51C3C01F-111D-4256-92C9-50E9C0202A40} = {AA27C614-73FF-46C3-9068-2B11B7399058}
+		{8B0D2414-C556-4D7C-AB6D-3E97AB2AD87A} = {AA27C614-73FF-46C3-9068-2B11B7399058}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EC02C299-F875-4A8D-9955-FED6A0C649DD}

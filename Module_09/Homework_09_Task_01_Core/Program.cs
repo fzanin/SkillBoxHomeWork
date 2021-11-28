@@ -57,7 +57,7 @@ namespace Homework_09_Task_01_Core
 
 
 
-            Console.WriteLine("Status string");
+            //Console.WriteLine("Status string");
         }
     }
 }
