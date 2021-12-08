@@ -13,29 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Homework_10_Task_01_WPF
+namespace Homework_10_Example_MVVM_3
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        BotController client;
+        private readonly MyViewModel _viewModel;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            client = new BotController(this);
-
-            logList.ItemsSource = client.botMessageLog;
-        }
-
-        private void btnMsgSendClick(object sender, RoutedEventArgs e)
-        {
-            client.ShowTextMessagae(txtMsgSend.Text, Convert.ToInt64(TargetSend.Text));
-
-            client.CheckTextMessage(txtMsgSend.Text, Convert.ToInt64(TargetSend.Text));
+            _viewModel = new MyViewModel();
+            // The DataContext serves as the starting point of Binding Paths
+            DataContext = _viewModel;
         }
     }
 }

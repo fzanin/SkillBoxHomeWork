@@ -46,6 +46,12 @@ namespace Homework_10_Task_01_WPF
             // here we will save all received files
             downloadFolder = "Downloads";
 
+            if (!Directory.Exists(downloadFolder))
+            {
+                Directory.CreateDirectory(downloadFolder);
+            }
+
+
             // initialize the LOGGER
             //Logger = new LogHelper();
 
@@ -202,6 +208,16 @@ namespace Homework_10_Task_01_WPF
 
         }
 
+
+        public void ShowTextMessagae(string textMessage, long chatId)
+        {
+            w.Dispatcher.Invoke(() =>
+            {
+                botMessageLog.Add(new MessageLog(DateTime.Now.ToLongTimeString(), textMessage, "Origin!", chatId));
+            });
+        }
+
+
         /// <summary>
         /// Checker for received text messages
         /// </summary>
@@ -219,21 +235,10 @@ namespace Homework_10_Task_01_WPF
                                    "Для просмотра списка файлов жмакни /list";
                     break;
 
-                case "/english":
-                    replyMessage = "Hop-hey, la-la-lay! \nI don't know what else to say... \nНо на будущее - говори по русски...)))";
-                    break;
-
                 case "/list":
-                    replyMessage = ""; //"Хоп-хей ла-ла-лей! \nБудет список веселей ...)))";
+                    replyMessage = ""; 
 
                     List<string> listOfFiles = GetFilesList();
-
-                    //foreach (string f in listOfFiles)
-                    //{
-                    //    string fileLink = $"/File_{f}";
-                    //    //await botClient.SendTextMessageAsync(chatId, $@"/File {f}");
-                    //    await botClient.SendTextMessageAsync(chatId, @fileLink);
-                    //}
 
                     var rkm = new ReplyKeyboardMarkup();
                     var rows = new List<KeyboardButton[]>();
@@ -250,11 +255,6 @@ namespace Homework_10_Task_01_WPF
                     await botClient.SendTextMessageAsync(chatId, "Нажми на кнопку - получишь результат ...", replyMarkup: rkm);
 
                     break;
-
-                case "/upload":
-                    UploadFile(chatId, "Aaaaaaaa.txt");
-                    break;
-
 
                 default:
 
@@ -274,10 +274,15 @@ namespace Homework_10_Task_01_WPF
                 await botClient.SendTextMessageAsync(chatId, replyMessage);
 
 
+            //w.Dispatcher.Invoke(() =>
+            //{
+            //    botMessageLog.Add(new MessageLog(DateTime.Now.ToLongTimeString(), textMessage, "Origin!", chatId));
+            //});
+
+
             w.Dispatcher.Invoke(() =>
             {
                 botMessageLog.Add(new MessageLog(DateTime.Now.ToLongTimeString(), replyMessage, "Just Bot!", chatId));
-
             });
 
 
