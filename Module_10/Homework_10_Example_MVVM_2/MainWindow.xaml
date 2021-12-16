@@ -36,14 +36,14 @@
         <TextBlock Grid.Row="0" Text="Customer" TextAlignment="Center" FontSize="16" Style="{StaticResource BoldText}"/>
 
         <DockPanel Grid.Row="1">
-            <TextBlock Text="Name: " Style="{StaticResource BoldText}"/>
-            <TextBlock Text="{Binding SelectedName}"/>
+            <TextBlock Margin="15" Text="Name: " Style="{StaticResource BoldText}"/>
+            <TextBox Margin="15" Text="{Binding SelectedName}"/>
 
             
 
         </DockPanel>
 
-        <Button Grid.Row="2"  x:Name="Hit" Content="AB 1" Click="Hit_Click"/>
+        <Button Margin="10" Grid.Row="2"  x:Name="Hit" Content="AB 1" Click="Hit_Click"/>
 
 
     </Grid>

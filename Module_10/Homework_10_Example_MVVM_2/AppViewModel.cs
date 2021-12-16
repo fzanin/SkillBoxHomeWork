@@ -7,14 +7,14 @@ namespace Homework_10_Example_MVVM_2
 {
     public class AppViewModel : INotifyPropertyChanged
     {
-        private string selectedName;
+        private Nekto selectedName;
 
         public string SelectedName
         {
-            get { return selectedName; }
+            get { return selectedName.Name; }
             set 
             { 
-                selectedName = value; 
+                selectedName.Name = value; 
                 OnPropertyChanged("SelectedName");
             }
         }
@@ -31,7 +31,7 @@ namespace Homework_10_Example_MVVM_2
 
         public AppViewModel()
         {
-            selectedName = "FirstName";
+            selectedName = new Nekto { Name = "FirstName" };
         }
 
 
