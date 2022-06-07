@@ -8,7 +8,10 @@ namespace Homework_10_Task_MVVM.Model
     internal class HelloModel
     {
 
-        private List<string> repositoryData;
+        //private List<string> repositoryData;
+        private string repositoryData;
+
+
         public string ImportantInfo
         {
             get
@@ -17,9 +20,10 @@ namespace Homework_10_Task_MVVM.Model
             }
         }
 
-        private string SummarizedData(List<string> dataList)
+        //private string SummarizedData(List<string> dataList)
+        private string SummarizedData(string dataList)
         {
-            string importantInfo = dataList.ElementAt(0) + ", " + dataList.ElementAt(1) + "!";
+            string importantInfo = dataList;
             return importantInfo;
         }
 
@@ -28,13 +32,10 @@ namespace Homework_10_Task_MVVM.Model
             repositoryData = GetData();
         }
 
-        private List<string> GetData()
+        //private List<string> GetData()
+        private string GetData()
         {
-            repositoryData = new List<string>()
-            {
-                "Hello",
-                "Model"
-            };
+            repositoryData = "Hello Model";
 
             return repositoryData;
         }

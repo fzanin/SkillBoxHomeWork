@@ -33,9 +33,13 @@ namespace Homework_10_Task_01_WPF
 
         private void btnMsgSendClick(object sender, RoutedEventArgs e)
         {
-            client.ShowTextMessagae(txtMsgSend.Text, Convert.ToInt64(TargetSend.Text));
+            if (!String.IsNullOrEmpty(TargetSend.Text))
+            {
+                client.ShowTextMessagae(txtMsgSend.Text, Convert.ToInt64(TargetSend.Text));
 
-            client.CheckTextMessage(txtMsgSend.Text, Convert.ToInt64(TargetSend.Text));
+                client.CheckTextMessage(txtMsgSend.Text, Convert.ToInt64(TargetSend.Text));
+            }
         }
+
     }
 }

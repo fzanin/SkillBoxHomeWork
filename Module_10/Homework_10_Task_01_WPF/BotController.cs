@@ -9,6 +9,7 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
 using System.IO;
 using System.Collections.ObjectModel;
+using Newtonsoft.Json;
 
 namespace Homework_10_Task_01_WPF
 {
@@ -208,13 +209,34 @@ namespace Homework_10_Task_01_WPF
 
         }
 
-
+        /// <summary>
+        /// Show the string message
+        /// </summary>
+        /// <param name="textMessage"></param>
+        /// <param name="chatId"></param>
         public void ShowTextMessagae(string textMessage, long chatId)
         {
             w.Dispatcher.Invoke(() =>
             {
-                botMessageLog.Add(new MessageLog(DateTime.Now.ToLongTimeString(), textMessage, "Origin!", chatId));
+                MessageLog newMessage = new MessageLog(DateTime.Now.ToLongTimeString(), textMessage, "Origin!", chatId);
+                botMessageLog.Add(newMessage);
+
+                LogTextMessageToJson(newMessage);
             });
+        }
+
+        /// <summary>
+        /// Save new message in Json file
+        /// </summary>
+        /// <param name="newMessage"></param>
+        private void LogTextMessageToJson(MessageLog newMessage)
+        {
+            string json = JsonConvert.SerializeObject(newMessage);
+
+            if (File.Exists(@"BotLog.json"))
+                File.AppendAllText(@"BotLog.json", json);
+            else
+                File.WriteAllText(@"BotLog.json", json);
         }
 
 
@@ -273,22 +295,14 @@ namespace Homework_10_Task_01_WPF
             if (replyMessage.Length > 0)
                 await botClient.SendTextMessageAsync(chatId, replyMessage);
 
-
-            //w.Dispatcher.Invoke(() =>
-            //{
-            //    botMessageLog.Add(new MessageLog(DateTime.Now.ToLongTimeString(), textMessage, "Origin!", chatId));
-            //});
-
-
             w.Dispatcher.Invoke(() =>
             {
-                botMessageLog.Add(new MessageLog(DateTime.Now.ToLongTimeString(), replyMessage, "Just Bot!", chatId));
+                MessageLog newMessage = new MessageLog(DateTime.Now.ToLongTimeString(), replyMessage, "Just Bot!", chatId);
+                botMessageLog.Add(newMessage);
+                LogTextMessageToJson(newMessage);
             });
 
-
-
         }
-
 
     }
 }

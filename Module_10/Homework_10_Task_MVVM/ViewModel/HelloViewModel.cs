@@ -11,15 +11,15 @@ namespace Homework_10_Task_MVVM.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private string helloString;
+        private string helloOutputString;
 
-        public string HelloString
+        public string HelloOutputString
         {
-            get { return helloString; }
+            get { return helloOutputString; }
 
             set 
-            { 
-                helloString = value;
+            {
+                helloOutputString = value;
                 OnPropertyChanged();
             }
         }
@@ -33,7 +33,7 @@ namespace Homework_10_Task_MVVM.ViewModel
         public HelloViewModel()
         {
             HelloModel helloModel = new HelloModel();
-            helloString = helloModel.ImportantInfo;
+            helloOutputString = helloModel.ImportantInfo;
         }
 
 
