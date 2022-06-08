@@ -8,12 +8,12 @@ namespace Homework_11_Task_01
 {
     public class Client
     {
-        private string firstName;
-        private string lastName;
-        private string? middleName;
-        private int phoneNumber;
-        private string? passportSerie;
-        private int passportNumber;
+        protected string firstName;
+        protected string lastName;
+        protected string? middleName;
+        protected Int64 phoneNumber;
+        protected string? passportSerie;
+        protected int passportNumber;
 
         public string FirstName
         { 
@@ -21,8 +21,36 @@ namespace Homework_11_Task_01
             set { firstName = value; } 
         }
 
+        public string LastName
+        {
+            get { return lastName; }
+            set { lastName = value; }
+        }
 
-        public Client(string firstName, string lastName, string middleName, int phoneNumber, string passportSerie, int passportNumber)
+        public string MiddleName
+        {
+            get { return middleName; }
+            set { middleName = value; }
+        }
+
+        public Int64 PhoneNumber
+        {
+            get { return phoneNumber; }
+            set { phoneNumber = value; }
+        }
+
+        public string PassportSerie
+        {
+            get { return passportSerie; }
+            set
+            {
+                passportSerie = value;
+            }
+
+        }
+
+
+        public Client(string firstName, string lastName, string middleName, Int64 phoneNumber, string passportSerie, int passportNumber)
         {
             this.firstName = firstName;
             this.lastName = lastName;
