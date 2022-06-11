@@ -99,6 +99,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework_11_Task_01", "Modu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework_11_Math_Proxy_Example", "Module_11\Homework_11_Math_Proxy_Example\Homework_11_Math_Proxy_Example.csproj", "{8B8A25E3-577C-44A4-9808-0D72D6571D69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework_11_Employee_Proxy_Example", "Module_11\Homework_11_Employee_Proxy_Example\Homework_11_Employee_Proxy_Example.csproj", "{5CFC8E47-95D1-468A-8332-A04488CCE120}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -257,6 +259,10 @@ Global
 		{8B8A25E3-577C-44A4-9808-0D72D6571D69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B8A25E3-577C-44A4-9808-0D72D6571D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B8A25E3-577C-44A4-9808-0D72D6571D69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CFC8E47-95D1-468A-8332-A04488CCE120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CFC8E47-95D1-468A-8332-A04488CCE120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CFC8E47-95D1-468A-8332-A04488CCE120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFC8E47-95D1-468A-8332-A04488CCE120}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -300,6 +306,7 @@ Global
 		{C632C103-153A-49EA-80A1-9993E4C28773} = {CAC99D18-7AD6-4F9A-9BAA-8AC69AA2C1E9}
 		{F7995E6E-3BD9-48BF-99F4-B849ABF476F1} = {CAC99D18-7AD6-4F9A-9BAA-8AC69AA2C1E9}
 		{8B8A25E3-577C-44A4-9808-0D72D6571D69} = {CAC99D18-7AD6-4F9A-9BAA-8AC69AA2C1E9}
+		{5CFC8E47-95D1-468A-8332-A04488CCE120} = {CAC99D18-7AD6-4F9A-9BAA-8AC69AA2C1E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EC02C299-F875-4A8D-9955-FED6A0C649DD}
