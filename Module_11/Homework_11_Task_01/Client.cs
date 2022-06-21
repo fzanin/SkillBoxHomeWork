@@ -77,6 +77,11 @@ namespace Homework_11_Task_01
             set { passportNumber = value; }
         }
 
+        static Client()
+        {
+
+        }
+
         /// <summary>
         /// Client's Constructor
         /// </summary>
@@ -95,6 +100,7 @@ namespace Homework_11_Task_01
             this.passportSerie = passportSerie;
             this.passportNumber = passportNumber;
         }
+
 
     }
 }
